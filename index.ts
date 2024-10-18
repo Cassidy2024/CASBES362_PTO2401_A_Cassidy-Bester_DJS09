@@ -3,6 +3,8 @@
 // all TypeScript weakness flags.
 // : number
 const reviewTotalDisplay = document.querySelector('#reviews')
+const userNameDisplay = document.querySelector('#user')
+const returningUserDisplay = document.querySelector('#returning-user')
 
 const reviews = [
     {
@@ -24,3 +26,27 @@ const reviews = [
         date: '27-03-2021'
     },
 ]
+
+
+
+function showReviewTotal (value : number, reviewer: string, isLoyalty : boolean) {
+    const iconDisplay = isLoyalty ? '⭐' : ''
+    reviewTotalDisplay!.innerHTML = 'review total ' + value.toString() + '| last reviewed by ' + reviewer + iconDisplay
+}
+
+showReviewTotal(reviews.length, reviews[0].name, reviews[0].loyaltyUser)
+
+const you = {
+    userName: 'Cass',
+    isReturning: true,
+}
+
+
+function populateUser(isReturning: boolean, userName: string ) {
+   if (isReturning){
+       returningUserDisplay!.innerHTML = 'back'
+   }
+   userNameDisplay!.innerHTML = userName
+}
+
+populateUser(you.isReturning, you.userName)

@@ -1,6 +1,7 @@
 module.exports = {
+  mode: 'development',
   "output": {
-    "filename": "[name].pack.js"
+    "filename": "index.pack.js"
   },
   "entry": {
     "index": "./index"
@@ -23,4 +24,5 @@ module.exports = {
       }
     ]
   }
+ 
 };
