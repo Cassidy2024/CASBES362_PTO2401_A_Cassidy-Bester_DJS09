@@ -36,6 +36,8 @@ body {
 .properties {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+    margin-right: 40px;
 }
 
 .card {
@@ -91,4 +93,16 @@ body {
     width: 100%; /* Make the image take up the full width of the container */
     height: auto; /* Maintain the aspect ratio */
     object-fit: cover; /* Makes the image cover the entire container area while cropping if necessary */
+}
+
+button {
+    background-color: green;
+    color: white;
+    border-radius: 5px;
+    border: none;
+    padding: 10px;
+}
+
+button:hover {
+    background-color: darkgoldenrod;
 }
