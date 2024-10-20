@@ -1,7 +1,4 @@
-// Number Types mini-challenge 10 10.2
-// Write a function that will only accept numbers and attend to 
-// all TypeScript weakness flags.
-// : number
+
 const reviewTotalDisplay = document.querySelector('#reviews')
 const userNameDisplay = document.querySelector('#user')
 const returningUserDisplay = document.querySelector('#returning-user')
@@ -10,10 +7,6 @@ const footer = document.querySelector('.footer')
 const reviewContainer = document.querySelector('.reviews')
 const container = document.querySelector('.container')
 const button = document.querySelector('button')
-
-
-
-
 
 let isLoggedIn: boolean
 
@@ -26,10 +19,7 @@ interface Review {
 }
 
 const reviews :Review[] = [
-    
-
-
-    {
+     {
         name: 'Sheia',
         stars: 5,
         loyaltyUser: true,
@@ -49,8 +39,6 @@ const reviews :Review[] = [
         //description: 'Great hosts, location was a bit further than said',
     },
 ]
-
-
 
 function showReviewTotal (value : number, reviewer: string, isLoyalty : boolean) {
     const iconDisplay = isLoyalty ? '⭐' : ''
@@ -169,7 +157,6 @@ function showDetails(authorityStatus: boolean | Permissions, element : HTMLDivEl
    }
 }
 
-
 function makeMultiple(value: number) : string {
     if (value > 1 || value == 0 ) {
         return 's'
@@ -206,7 +193,6 @@ for (let i = 0; i < properties.length; i++) {
 }
 
 
-//Broken code
 let count = 0
 function addReviews(array: {
     name: string;
@@ -231,8 +217,6 @@ button!.addEventListener('click', () => addReviews(reviews))
 
 let currentLocation : [string, string, number] = ['Abu Dhabi', '14:45', 28]
 footer!.innerHTML = currentLocation[0] + ' ' + currentLocation[1] + ' ' + currentLocation[2] + '°'
-
-
 
 // Classes
 class MainProperty {
