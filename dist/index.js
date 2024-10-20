@@ -30,7 +30,7 @@ var reviews = [
         stars: 4,
         loyaltyUser: true,
         date: '27-03-2021',
-        description: 'Great hosts, location was a bit further than said',
+        //description: 'Great hosts, location was a bit further than said',
     },
 ];
 function showReviewTotal(value, reviewer, isLoyalty) {
@@ -86,6 +86,19 @@ var properties = [
         },
         contact: [+1123495082908, 'andyluger@aol.com'],
         isAvailable: true
+    },
+    {
+        image: 'images/Malia-hotel-room.jpg',
+        title: 'Malia Hotel',
+        price: 35,
+        location: {
+            firstLine: 'Room 4',
+            city: 'Malia',
+            code: 45334,
+            country: 'Malaysia'
+        },
+        contact: [+60349822083, 'lee34@gmail.com'],
+        isAvailable: false
     }
 ];
 function populateUser(isReturning, userName) {
@@ -119,9 +132,9 @@ for (var i = 0; i < properties.length; i++) {
     var card = document.createElement('div');
     card.classList.add('card');
     card.innerHTML = properties[i].title;
-    var image = document.createElement('img');
-    image.setAttribute('src', properties[i].image);
-    card.appendChild(image);
+    var image_1 = document.createElement('img');
+    image_1.setAttribute('src', properties[i].image);
+    card.appendChild(image_1);
     propertyContainer.appendChild(card);
     showDetails(isLoggedIn, card, properties[i].price);
 }
@@ -143,3 +156,22 @@ function addReviews(array) {
 button.addEventListener('click', function () { return addReviews(reviews); });
 var currentLocation = ['Abu Dhabi', '14:45', 28];
 footer.innerHTML = currentLocation[0] + ' ' + currentLocation[1] + ' ' + currentLocation[2] + '°';
+// Classes
+var MainProperty = /** @class */ (function () {
+    function MainProperty(src, title, reviews) {
+        this.src = src;
+        this.title = title;
+        this.reviews = reviews;
+    }
+    return MainProperty;
+}());
+var yourMainProperty = new MainProperty('images/italian-house.jpg', 'Italian House', [{
+        name: 'Olive',
+        stars: 5,
+        loyaltyUser: true,
+        date: '12-04-2021'
+    }]);
+var mainImageContainer = document.querySelector('.main-image');
+var image = document.createElement('img');
+image.setAttribute('src', yourMainProperty.src);
+mainImageContainer.appendChild(image);

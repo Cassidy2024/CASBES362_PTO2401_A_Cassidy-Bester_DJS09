@@ -17,21 +17,18 @@ const button = document.querySelector('button')
 
 let isLoggedIn: boolean
 
-const reviews :( {
-    name: string;
-    stars: number;
-    loyaltyUser: boolean;
-    date: string;
-} |
-{
-    name: string;
-    stars: number;
-    loyaltyUser: boolean;
-    date: string;
-    description: string;
-
+interface Review {
+    name: string; 
+    stars: number; 
+    loyaltyUser: boolean; 
+    date: string;   
+    
 }
-)[] = [
+
+const reviews :Review[] = [
+    
+
+
     {
         name: 'Sheia',
         stars: 5,
@@ -49,7 +46,7 @@ const reviews :( {
         stars: 4,
         loyaltyUser: true,
         date: '27-03-2021',
-        description: 'Great hosts, location was a bit further than said',
+        //description: 'Great hosts, location was a bit further than said',
     },
 ]
 
@@ -79,20 +76,24 @@ const you: {
 }
 
 
-//Properties
-const properties : {
+interface Property {
     image: string;
     title: string;
     price: number;
     location: {
         firstLine: string;
         city: string;
-        code: number;
-        country: string;
-    };
-    contact: [number, string];
+        code: number | string;
+        country: string
+    }
+    contact: [ number, string];
     isAvailable: boolean;
-}[] = [
+}
+
+
+//Properties
+const properties : Property [] =[
+
     {
         image: 'images/colombian-shack.webp',
         title: 'Colombian Shack',
@@ -131,6 +132,19 @@ const properties : {
         },
         contact: [ +1123495082908, 'andyluger@aol.com'],
         isAvailable: true
+    },
+    {
+        image: 'images/Malia-hotel-room.jpg',
+        title: 'Malia Hotel',
+        price: 35,
+        location: {
+            firstLine: 'Room 4',
+            city: 'Malia',
+            code: 45334,
+            country: 'Malaysia'
+        },
+        contact: [ +60349822083, 'lee34@gmail.com'],
+        isAvailable: false
     }
 ]
 
@@ -217,3 +231,32 @@ button!.addEventListener('click', () => addReviews(reviews))
 
 let currentLocation : [string, string, number] = ['Abu Dhabi', '14:45', 28]
 footer!.innerHTML = currentLocation[0] + ' ' + currentLocation[1] + ' ' + currentLocation[2] + '°'
+
+
+
+// Classes
+class MainProperty {
+    src: string
+    title: string
+    reviews: Review[]
+    constructor(src: string, title: string, reviews: Review[]) {
+        this.src = src
+        this.title = title
+        this.reviews = reviews
+    }
+}
+
+let yourMainProperty = new MainProperty(
+    'images/italian-house.jpg', 
+    'Italian House',
+    [{
+        name: 'Olive',
+        stars: 5,
+        loyaltyUser: true,
+        date: '12-04-2021'
+    }] )
+
+const mainImageContainer = document.querySelector('.main-image')
+const image = document.createElement('img')
+image.setAttribute('src', yourMainProperty.src)
+mainImageContainer!.appendChild(image)
