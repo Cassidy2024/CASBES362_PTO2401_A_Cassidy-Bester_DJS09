@@ -7,6 +7,7 @@ var reviewTotalDisplay = document.querySelector('#reviews');
 var userNameDisplay = document.querySelector('#user');
 var returningUserDisplay = document.querySelector('#returning-user');
 var propertyContainer = document.querySelector('.properties');
+var footer = document.querySelector('.footer');
 var reviews = [
     {
         name: 'Sheia',
@@ -52,7 +53,7 @@ var properties = [
             code: 45632,
             country: 'Colombia'
         },
-        contact: 'marywinkle@gmail.com',
+        contact: [+1123495082908, 'marywinkle@gmail.com'],
         isAvailable: true
     },
     {
@@ -65,7 +66,7 @@ var properties = [
             code: 343903,
             country: 'Poland'
         },
-        contact: 'garydavis@hotmail.com',
+        contact: [+1123495082908, 'garydavis@hotmail.com'],
         isAvailable: false
     },
     {
@@ -78,7 +79,7 @@ var properties = [
             code: 35433,
             country: 'United Kingdom',
         },
-        contact: 'andyluger@aol.com',
+        contact: [+1123495082908, 'andyluger@aol.com'],
         isAvailable: true
     }
 ];
@@ -98,3 +99,5 @@ for (var i = 0; i < properties.length; i++) {
     card.appendChild(image);
     propertyContainer.appendChild(card);
 }
+var currentLocation = ['Abu Dhabi', '14:45', 28];
+footer.innerHTML = currentLocation[0] + ' ' + currentLocation[1] + ' ' + currentLocation[2] + '°';
