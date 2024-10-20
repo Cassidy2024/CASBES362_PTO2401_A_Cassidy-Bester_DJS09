@@ -8,6 +8,10 @@ var userNameDisplay = document.querySelector('#user');
 var returningUserDisplay = document.querySelector('#returning-user');
 var propertyContainer = document.querySelector('.properties');
 var footer = document.querySelector('.footer');
+var reviewContainer = document.querySelector('.reviews');
+var container = document.querySelector('.container');
+var button = document.querySelector('button');
+var isLoggedIn;
 var reviews = [
     {
         name: 'Sheia',
@@ -25,12 +29,13 @@ var reviews = [
         name: 'Omar',
         stars: 4,
         loyaltyUser: true,
-        date: '27-03-2021'
+        date: '27-03-2021',
+        description: 'Great hosts, location was a bit further than said',
     },
 ];
 function showReviewTotal(value, reviewer, isLoyalty) {
     var iconDisplay = isLoyalty ? '⭐' : '';
-    reviewTotalDisplay.innerHTML = 'review total ' + value.toString() + '| last reviewed by ' + reviewer + iconDisplay;
+    reviewTotalDisplay.innerHTML = value.toString() + ' Review' + makeMultiple(value) + '| last reviewed by ' + reviewer + iconDisplay;
 }
 showReviewTotal(reviews.length, reviews[0].name, reviews[0].loyaltyUser);
 // User
@@ -90,6 +95,26 @@ function populateUser(isReturning, userName) {
     userNameDisplay.innerHTML = userName;
 }
 populateUser(you.isReturning, you.firstName);
+var authorityStatus;
+isLoggedIn = true;
+function showDetails(authorityStatus, element, price) {
+    if (authorityStatus) {
+        var priceDisplay = document.createElement('div');
+        priceDisplay.innerHTML = price.toString() + '/night';
+        element.appendChild(priceDisplay);
+    }
+}
+function makeMultiple(value) {
+    if (value > 1 || value == 0) {
+        return 's';
+    }
+    else
+        return '';
+}
+function getTopTwoReviews(reviews) {
+    var sortedReviews = reviews.sort(function (a, b) { return b.stars - a.stars; });
+    return sortedReviews.slice(0, 2);
+}
 for (var i = 0; i < properties.length; i++) {
     var card = document.createElement('div');
     card.classList.add('card');
@@ -98,6 +123,23 @@ for (var i = 0; i < properties.length; i++) {
     image.setAttribute('src', properties[i].image);
     card.appendChild(image);
     propertyContainer.appendChild(card);
+    showDetails(isLoggedIn, card, properties[i].price);
 }
+//Broken code
+var count = 0;
+function addReviews(array) {
+    if (!count) {
+        count++;
+        var topTwo = getTopTwoReviews(array);
+        for (var i = 0; i < topTwo.length; i++) {
+            var card = document.createElement('div');
+            card.classList.add('review-card');
+            card.innerHTML = topTwo[i].stars + ' stars from ' + topTwo[i].name;
+            reviewContainer.appendChild(card);
+        }
+        container.removeChild(button);
+    }
+}
+button.addEventListener('click', function () { return addReviews(reviews); });
 var currentLocation = ['Abu Dhabi', '14:45', 28];
 footer.innerHTML = currentLocation[0] + ' ' + currentLocation[1] + ' ' + currentLocation[2] + '°';

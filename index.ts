@@ -7,13 +7,31 @@ const userNameDisplay = document.querySelector('#user')
 const returningUserDisplay = document.querySelector('#returning-user')
 const propertyContainer = document.querySelector('.properties')
 const footer = document.querySelector('.footer')
+const reviewContainer = document.querySelector('.reviews')
+const container = document.querySelector('.container')
+const button = document.querySelector('button')
 
-const reviews : {
+
+
+
+
+let isLoggedIn: boolean
+
+const reviews :( {
     name: string;
     stars: number;
     loyaltyUser: boolean;
     date: string;
-}[] = [
+} |
+{
+    name: string;
+    stars: number;
+    loyaltyUser: boolean;
+    date: string;
+    description: string;
+
+}
+)[] = [
     {
         name: 'Sheia',
         stars: 5,
@@ -30,7 +48,8 @@ const reviews : {
         name: 'Omar',
         stars: 4,
         loyaltyUser: true,
-        date: '27-03-2021'
+        date: '27-03-2021',
+        description: 'Great hosts, location was a bit further than said',
     },
 ]
 
@@ -38,7 +57,7 @@ const reviews : {
 
 function showReviewTotal (value : number, reviewer: string, isLoyalty : boolean) {
     const iconDisplay = isLoyalty ? '⭐' : ''
-    reviewTotalDisplay!.innerHTML = 'review total ' + value.toString() + '| last reviewed by ' + reviewer + iconDisplay
+    reviewTotalDisplay!.innerHTML = value.toString() + ' Review' + makeMultiple(value) + '| last reviewed by ' + reviewer + iconDisplay
 }
 
 showReviewTotal(reviews.length, reviews[0].name, reviews[0].loyaltyUser)
@@ -53,6 +72,7 @@ const you: {
 } = {
     firstName: 'Bobby',
     lastName: 'Brown',
+    
     isReturning: true,
     age: 35,
     stayedAt: ['florida-home', 'oman-flat', 'tokyo-bungalow']
@@ -123,6 +143,42 @@ function populateUser(isReturning: boolean, userName: string ) {
 
 populateUser(you.isReturning, you.firstName)
 
+let authorityStatus : any
+
+isLoggedIn = true
+
+function showDetails(authorityStatus: boolean | Permissions, element : HTMLDivElement, price: number) {
+   if (authorityStatus) {
+       const priceDisplay = document.createElement('div')
+       priceDisplay.innerHTML = price.toString() + '/night'
+       element.appendChild(priceDisplay)
+   }
+}
+
+
+function makeMultiple(value: number) : string {
+    if (value > 1 || value == 0 ) {
+        return 's'
+    } else return ''
+}
+
+
+function getTopTwoReviews(reviews: {
+    name: string;
+    stars: number;
+    
+    date: string;
+}[]) : {
+    name: string;
+    stars: number;
+    
+    date: string;  
+}[]  {
+ const sortedReviews = reviews.sort((a, b) => b.stars - a.stars)
+ return sortedReviews.slice(0,2)
+}
+   
+
 
 for (let i = 0; i < properties.length; i++) {
     const card = document.createElement('div')
@@ -132,8 +188,32 @@ for (let i = 0; i < properties.length; i++) {
     image.setAttribute('src', properties[i].image)
     card.appendChild(image)
     propertyContainer!.appendChild(card)
+    showDetails(isLoggedIn, card, properties[i].price)
 }
 
+
+//Broken code
+let count = 0
+function addReviews(array: {
+    name: string;
+    stars: number;
+    
+    date: string;
+}[] ) : void {
+    if (!count ) {
+        count++
+        const topTwo = getTopTwoReviews(array)
+        for (let i = 0; i < topTwo.length; i++) {
+            const card = document.createElement('div')
+            card.classList.add('review-card')
+            card.innerHTML = topTwo[i].stars + ' stars from ' + topTwo[i].name
+            reviewContainer!.appendChild(card)
+        }
+        container!.removeChild(button!) 
+    }
+}
+
+button!.addEventListener('click', () => addReviews(reviews))
 
 let currentLocation : [string, string, number] = ['Abu Dhabi', '14:45', 28]
 footer!.innerHTML = currentLocation[0] + ' ' + currentLocation[1] + ' ' + currentLocation[2] + '°'
